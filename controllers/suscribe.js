@@ -1,11 +1,11 @@
 import { Query } from "node-appwrite";
 import { database } from "../server.js";
-const COLLECTION_ID = "tags";
+const COLLECTION_ID = "subscribers";
 const DATABASE_ID = "default";
 
-export const replaceUserIdInTags = async (req, res) => {
+export const replaceUserIdInSubscribes = async (req, res) => {
     try {
-      const Tags =  await database.listDocuments(DATABASE_ID, COLLECTION_ID,[
+      const Subscribes =  await database.listDocuments(DATABASE_ID, COLLECTION_ID,[
         Query.limit(100),
         Query.cursorAfter('62dfa850aa5a6c194374')
       ]);
@@ -13,7 +13,7 @@ export const replaceUserIdInTags = async (req, res) => {
         Query.limit(100),
       ]);
       let i=0;
-      Tags.documents.forEach(async (poste)=>{
+      Subscribes.documents.forEach(async (poste)=>{
          const author= userList.documents.find((c)=>c.id===poste.user_id);
         if(author){
           await database.updateDocument(DATABASE_ID, COLLECTION_ID, poste.$id, {
@@ -34,7 +34,7 @@ export const replaceUserIdInTags = async (req, res) => {
     }
   };
 
-  export const getTags = async (req, res) => {
+  export const getSubscribes = async (req, res) => {
       try {
         const data = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
         res.status(200).json(data);
@@ -45,7 +45,7 @@ export const replaceUserIdInTags = async (req, res) => {
     
   };
   
-  export const createTags = async (req, res) => {
+  export const createSubscribes = async (req, res) => {
     console.log(req.body.length);
     // const { name, recipe, ingredients } = req.body;
     for (let index = 0; index < req.body.length; index++) {
@@ -60,7 +60,7 @@ export const replaceUserIdInTags = async (req, res) => {
   };
   
 
-  export const deleteTags = async (req, res) => {
+  export const deleteSubscribes = async (req, res) => {
     const id = req.params.id;
     const data = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [], 100);
     let count=0;

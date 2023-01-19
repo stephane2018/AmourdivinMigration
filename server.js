@@ -21,6 +21,7 @@ app.use("/", router);
 
 let client = new sdk.Client();
 export const database = new sdk.Databases(client);
+export const user = new sdk.Users(client);
 client
   .setEndpoint("http://78.46.11.35:89/v1") // Your API Endpoint
   .setProject("62628cb113431016278d") // Your project ID
